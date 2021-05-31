@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+            table {
+                  font-family: arial, sans-serif;
+                  border-collapse: collapse;
+                  width: 100%;
+                }
+
+                td, th {
+                  border: 1px solid #dddddd;
+                  text-align: left;
+                  padding: 8px;
+                }
+
+                tr:nth-child(even) {
+                  background-color: #dddddd;
+                }
+    </style>
+</head>
+<body>
+        <header style="display: flex; float: right;">
+            <a href="/logout" style="margin-right: 50px;">Logout</a>
+
+            <a href="/success">Dashboard</a>
+        </header>
+        <br>
+    <hr>
+        <section>
+                <div style="display: flex;padding: 8px;">
+                    <p>{{ this_post.users.first_name}} says:</p>
+                    <p style="border-style: solid;height: 80px;width: 800px;">{{this_post.post}}</p>
+                </div>
+                <div style="display: flex;margin-left: 800px;">
+                    {% if test %}
+                    <form action="/un_like/{{this_post.id}}" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" value="Unlike">
+                    </form>
+                    {% else %}
+                    
+                    <form action="/like/{{this_post.id}}" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" value="Like">
+                    </form>
+                    {% endif %}
+                </div>
+                <h4>
+                    People who liked this thought :
+                </h4>
+                <table>
+                    <tr>
+                        <th>First name</th>
+                        <th>Last name</th>
+                    </tr>
+            {% for x in this_post.liked_by.all %}
+                    <tr>
+                        <td>{{x.first_name}}</td>
+                        <td>{{x.last_name}}</td>
+                    </tr>
+            {% endfor %}
+                </table>
+            
+            
+        </section>
+</body>
+</html>

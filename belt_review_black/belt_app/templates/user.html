@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <header>
+            <h1>Hello {{request.session.username}}</h1>
+            <form action="/logout" method="POST">
+                {% csrf_token %} 
+                <input type="submit" value="logout">
+            </form>
+            <a href="/books/add">Add book And Review</a>
+            <a href="/success">Go Home Mother Fucker</a>
+        </header>
+    <hr>
+        <section>
+            <h2>{{this_user.first_name}}</h2>
+            <h2>{{this_user.first_name}} {{this_user.last_name}}</h2>
+            <h2>{{this_user.email}}</h2>
+            Total Reviews: <p>{{len(this_user.coments_user.post)}}</p>
+            <h3>Posted reviews on the following books</h3>
+                {% for j in com_loop %}
+                    <a href="/books/{{j.id}}">{{j.title}}</a>
+                {% endfor %}
+        </section>
+</body>
+</html>

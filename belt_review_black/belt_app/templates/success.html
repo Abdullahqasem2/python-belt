@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <header>
+            <h1>Hi {{request.session.username}}</h1>
+            <a href="/logout">Log out</a>
+        </header>
+    <hr>
+        <section>
+            <center>
+                <form action="/add_post" method="POST">
+                    {% csrf_token %}
+                    <input type="text" name="post" placeholder="post a great thought here" required>
+                    <input type="submit" value="Add Thought!">
+
+                </form>
+                <hr>
+                {% for i in all_posts %}
+                <p>{{i.users.first_name}} says:</p>
+                <p>
+                    {{i.post}}
+                </p>
+                {% if i.users.id == this_user_id %}
+                <form action="/delete/{{i.id}}" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete">
+                </form>
+                {% endif %}
+                <a href="/thoughts/{{i.id}}">Details</a>
+                <p> liked by: {{i.users.id}} </p>
+                {% endfor %}
+            </center>
+        </section>
+</body>
+</html>

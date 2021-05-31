@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>welcome</title>
+</head>
+<body>
+    <main>
+        <header>
+            <h1>welcome {{email}}</h1>
+            <a href="/logout">Logout</a>
+            <a href="/success">Go Home Mother Fucker</a>
+        </header>
+        <hr>
+    <section>
+        <h1>Add a new book title and review</h1>
+        <form action="/add_book" method="POST">
+            Book title:<input type="text" name="title" placeholder="Book title" required>
+            <h3>Auther:</h3>
+                 Choos from the list
+                   <select name="Authers">
+                   {% for i in all_authers %}
+                        <option value="{{i.id}}">{{i.name}}</option>
+                   {% endfor %}
+                   </select>
+            <input type="text" name="auther">
+            Review:<textarea name="review" placeholder="type your review" required></textarea>
+            Rating: <input type="number" min="1" max="5" name="star" required> Stars
+            <input type="submit" value="Add Book And Review">
+        </form>    
+    </section>
+    </main>
+</body>
+</html>
